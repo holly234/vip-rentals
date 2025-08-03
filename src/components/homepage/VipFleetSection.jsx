@@ -1,47 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import CarCard from '../common/CarCard';
-import { db } from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { useCarContext } from '../../context/CarContext';
 
 const VipFleetSection = () => {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'vehicles'));
-        const vehiclesData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setVehicles(vehiclesData);
-      } catch (error) {
-        console.error('Error fetching vehicles:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchVehicles();
-  }, []);
+  const { vehicles, loading } = useCarContext();
 
   if (loading) {
     return <div className="text-center py-10 text-gray-600">Loading...</div>;
   }
 
   return (
-    <section className="w-[90%] md:w-[85%] mx-auto py-14">
+    <section className="w-[95%] md:w-[85%] mx-auto ">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl md:text-3xl font-semibold">VIP FLEET</h2>
-        <Link to="/fleet" className="text-sm font-medium text-blue-600 hover:underline">
-          More →
-        </Link>
+      <div className="mb-8">
+        <h2
+        style={{
+           fontFamily: 'Prata, serif', 
+           fontWeight: 400,
+    fontStyle: 'normal',
+    letterSpacing: '0.5%'
+          }}
+         className="text-2xl md:text-3xl font-semibold">VIP Fleet</h2>
       </div>
 
-      {/* Scrollable horizontal row on all devices */}
+      {/* Scrollable horizontal row */}
       <div className="overflow-x-auto px-2 -mx-2">
         <div className="flex space-x-6 w-max">
           {vehicles.slice(0, 6).map((vehicle) => (
@@ -49,12 +32,22 @@ const VipFleetSection = () => {
               key={vehicle.id}
               className="w-[300px] flex-shrink-0"
             >
-              <div className="h-full flex flex-col justify-between border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+              <div className="h-full flex flex-col justify-between border border-gray-200 rounded-lg overflow-hidden ">
                 <CarCard {...vehicle} />
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* More button on mobile only */}
+      <div className="mt-8 text-center md:hidden">
+        <Link
+          to="/fleet"
+          className=" h-[46px] w-[108px]  px-6 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition border border-gray-300 text-gray-900 bg-white"
+        >
+          View more
+        </Link>
       </div>
     </section>
   );

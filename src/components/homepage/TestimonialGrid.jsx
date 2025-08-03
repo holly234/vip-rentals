@@ -31,7 +31,7 @@ const InfiniteHorizontalScroll = () => {
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const animationRef = useRef(null);
-  const speed = 0.5; // pixels per frame (lower = slower)
+  const speed = 0.5; // pixels per frame
 
   useEffect(() => {
     const container = containerRef.current;
@@ -39,24 +39,20 @@ const InfiniteHorizontalScroll = () => {
 
     if (!container || !content) return;
 
-    // Clone all cards for seamless looping
     const originalCards = Array.from(content.children);
-    originalCards.forEach(card => {
+    originalCards.forEach((card) => {
       const clone = card.cloneNode(true);
       content.appendChild(clone);
     });
 
     let position = 0;
-    const contentWidth = content.scrollWidth / 2; // Original width before cloning
+    const contentWidth = content.scrollWidth / 2;
 
     const animate = () => {
       position -= speed;
-      
-      // Reset position when we've scrolled one full width
       if (position <= -contentWidth) {
         position = 0;
       }
-      
       content.style.transform = `translateX(${position}px)`;
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -69,35 +65,37 @@ const InfiniteHorizontalScroll = () => {
   }, []);
 
   return (
-    <section className="w-full overflow-hidden py-12 bg-gray-50">
-      <div className="">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-8 mx-auto">
-          See What All The Talk is All About!
-        </h2>
+    <section className="w-[95%] sm:w-[90%] lg:w-[85%] mx-auto overflow-hidden ">
+      <h2 className="text-[24px] md:text-4xl  mb-8 "
+      style={{
+    fontFamily: 'Prata, serif',
+    fontWeight: 400,
+    fontStyle: 'normal',
+    letterSpacing: '0.5%',
+  }}
+      >
+        See What All The <br></br>Talk is All About!
+      </h2>
 
-        <div 
-          ref={containerRef}
-          className="overflow-hidden"
+      <div ref={containerRef} className="overflow-hidden">
+        <div
+          ref={contentRef}
+          className="flex"
+          style={{ width: 'max-content' }}
         >
-          <div 
-            ref={contentRef}
-            className="flex"
-            style={{ width: 'max-content' }}
-          >
-            {testimonials.map((item, index) => (
-              <div 
-                key={index}
-                className="flex-shrink-0 w-[300px] md:w-[400px] bg-white border border-gray-200 rounded-xl p-6 shadow-sm mx-3"
-              >
-                <p className="text-gray-700 text-sm leading-relaxed mb-4">
-                  {item.text}
-                </p>
-                <p className="text-right font-medium text-sm text-black">
-                  {item.name}
-                </p>
-              </div>
-            ))}
-          </div>
+          {testimonials.map((item, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-[300px] md:w-[400px] bg-white border border-gray-200 rounded-xl p-6 mx-3"
+            >
+              <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                {item.text}
+              </p>
+              <p className="text-right font-medium text-sm text-black">
+                {item.name}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

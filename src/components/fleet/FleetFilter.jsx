@@ -3,7 +3,7 @@ import { SlidersHorizontal } from 'lucide-react';
 
 const FleetFilters = () => {
   return (
-    <section className="px-4 sm:px-6 lg:w-[80%] lg:mx-auto mt-8 md:mt-12 lg:mt-16 mb-10 lg:mb-20">
+    <section className="px-4 mx-auto sm:px-6 w-[93%] lg:w-[80%] lg:mx-auto mt-2 md:mt-12 lg:mt-16 mb-10 lg:mb-20">
       {/* Title */}
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-10 lg:mb-20 px-2 sm:px-0">
         Exclusive Fleet of Luxury Cars

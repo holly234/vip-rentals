@@ -13,47 +13,60 @@ const CarCard = ({
   price,
 }) => {
   return (
-    <div className="w-full max-w-[440px] mx-auto sm:w-[440px] bg-white rounded-xl overflow-hidden border border-gray-200 flex-shrink-0">
-      {/* Car Image - made taller on mobile */}
+    <div className="w-full max-w-[372px] bg-white overflow-hidden border-[0.50px] border-gray-200 flex-shrink-0 mx-auto">
+      {/* Car Image */}
       <img
         src={imageUrl}
         alt={name}
-        className="w-full h-56 sm:h-56 object-cover"
+        className="w-full h-56 object-cover"
       />
 
-      {/* Card Content - added more padding on mobile */}
-      <div className="p-5 sm:p-4">
-        <h3 className="text-xl font-bold text-gray-800">{name}</h3>
-        <p className="text-sm text-gray-500">{year}</p>
+      {/* Card Content */}
+      <div className="p-5 flex flex-col gap-4">
+        {/* Name and Year */}
+        <div>
+          <h4
+          style={{ 
+            fontFamily: 'Prata, serif',
+            color: '#202124'
+          }}
+          className="text-[#202124]">{name}</h4>
+          <p className="text-sm text-[#202124]">{year}</p>
+        </div>
 
         {/* Divider */}
-        <div className="border-t my-4 sm:my-3 border-gray-200"></div>
+        <div className="border-t border-gray-200"></div>
 
-        {/* Icon Features - made icons slightly larger on mobile */}
-        <div className="flex justify-between text-center text-gray-600 text-sm">
-          <div className="flex flex-col items-center space-y-1">
-            <FaUsers size={22} className="sm:w-5" />
+        {/* Icon Features */}
+        <div className="flex justify-between text-center text-[#5F6368] text-sm">
+          <div className="flex-1 flex flex-col items-center gap-1">
+            <FaUsers size={18.24} className="text-[#5F6368]" />
             <span>{passengers} People</span>
           </div>
-          <div className="flex flex-col items-center space-y-1">
-            <FaCogs size={22} className="sm:w-5" />
+          <div className="flex-1 flex flex-col items-center gap-1 relative">
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 border-l border-gray-300"></div>
+            <FaCogs size={18.24} className="text-[#5F6368]" />
             <span>{transmission}</span>
           </div>
-          <div className="flex flex-col items-center space-y-1">
-            <FaSuitcase size={22} className="sm:w-5" />
+          <div className="flex-1 flex flex-col items-center gap-1 relative">
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 border-l border-gray-300"></div>
+            <FaSuitcase size={18.24} className="text-[#5F6368]" />
             <span>{luggage} Bags</span>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="border-t my-4 sm:my-3 border-gray-200"></div>
+        <div className="border-t border-gray-200"></div>
 
-        {/* Price and Button - made button slightly larger on mobile */}
-        <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold text-gray-800">₦{price}</span>
+        {/* Price and Button */}
+        <div className="flex justify-between mb-2 items-center">
+          <div>
+            <span className="text-base font-semibold text-[#202124]">${price}</span>
+            <span className="text-sm text-[#5F6368] ml-1">/day</span>
+          </div>
           <Link
             to={`/car/${id}`}
-            className="bg-black text-white px-5 py-2.5 sm:px-4 sm:py-2 text-sm rounded-lg hover:bg-gray-800 transition"
+            className="bg-black text-white px-5 py-2 text-sm rounded-md hover:bg-gray-800 transition"
           >
             Book Now
           </Link>

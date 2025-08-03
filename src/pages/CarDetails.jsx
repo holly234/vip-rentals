@@ -1,71 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import BookingCard from '../components/car details/BookingCard';
 import CarDetailsContent from '../components/car details/CarDetailsContent';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Breadcrumb from '../components/car details/Breadcrumb';
-import { db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { useCarContext } from '../context/CarContext';
+import FAQSection from '../components/homepage/FAQSection';
+import InstagramPromo from '../components/homepage/InstagramPromo';
 
 const CarDetailsPage = () => {
   const { id } = useParams();
-  const [car, setCar] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { vehicles, loading } = useCarContext();
 
-  useEffect(() => {
-    const fetchCarDetails = async () => {
-      try {
-        const docRef = doc(db, 'vehicles', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setCar({ id: docSnap.id, ...docSnap.data() });
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.error("Error getting car details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCarDetails();
-  }, [id]);
+  const car = vehicles.find((c) => c.id === id);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center py-10 text-gray-600">Loading...</div>;
   }
 
   if (!car) {
-    return <div>Car not found</div>;
+    return <div className="text-center py-10 text-red-500">Car not found</div>;
   }
 
   return (
     <>
       <Header />
 
-      {/* Title and Breadcrumb - responsive container */}
-      
+      {/* Optional breadcrumb (if you want to re-add it) */}
+      {/* <Breadcrumb carName={car.name} /> */}
 
-      {/* Main content section - responsive layout */}
-      <section className="w-full px-4 sm:px-6 lg:w-[80vw] lg:mx-auto py-6 flex flex-col lg:flex-row gap-6">
-        {/* Left Column - always full width except on desktop */}
+      <section className="w-full lg:px-4 sm:px-6 lg:w-[80vw] lg:mx-auto lg:py-6 flex flex-col lg:flex-row gap-6">
+        {/* Left Column */}
         <div className="w-full lg:w-[65%]">
           <CarDetailsContent car={car} />
         </div>
 
-        {/* Right Column - shows below on mobile, sticky on desktop */}
-        <div className="w-full lg:w-[35%]">
-          <div className="block lg:hidden mb-8">
-            <BookingCard car={car} />
-          </div>
-          <div className="hidden lg:block sticky top-24">
+        
+
+        
+     
+
+        {/* Right Column - Hidden on mobile, visible on desktop */}
+        <div className="hidden lg:block w-full lg:w-[35%]">
+          <div className="sticky top-24">
             <BookingCard car={car} />
           </div>
         </div>
+
+        
       </section>
+      <FAQSection />
+        <InstagramPromo />
 
       <Footer />
     </>

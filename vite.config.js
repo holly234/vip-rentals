@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 // ...existing code...
 // ...existing code...
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     react(),
     tailwindcss()

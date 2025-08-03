@@ -28,11 +28,21 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="w-[90%] sm:w-[85%] md:w-[80%] mx-auto my-16 sm:my-20 lg:my-24">
-      <h2 className="text-3xl sm:text-4xl font-semibold mb-8 sm:mb-12 text-center sm:text-left">
+    <section className="w-[95%] sm:w-[85%] md:w-[80%] mx-auto my-16 sm:my-20 lg:my-24">
+      <h2
+        className="mb-8 sm:mb-12 sm:text-left"
+        style={{
+          fontFamily: 'Prata, serif',
+          fontWeight: 400,
+          fontStyle: 'normal',
+          fontSize: '24px',
+          lineHeight: '130%',
+          letterSpacing: '0.5%',
+        }}
+      >
         Frequently Asked Questions
       </h2>
-      
+
       <div className="divide-y divide-gray-200">
         {faqs.map((faq, index) => (
           <div key={index} className="py-4 sm:py-6">
@@ -40,9 +50,19 @@ const FAQSection = () => {
               onClick={() => toggleFAQ(index)}
               className="flex justify-between items-center w-full text-left focus:outline-none group"
             >
-              <span className="text-base sm:text-lg font-medium text-gray-900 group-hover:text-black transition-colors">
+              <h3
+                className="text-base sm:text-lg transition-colors text-gray-900 group-hover:text-black"
+                style={{
+                  fontFamily: 'Prata, serif',
+                  fontWeight: 400,
+                  fontStyle: 'normal',
+                  fontSize: '20px',
+                  lineHeight: '140%',
+                  letterSpacing: '0.5%',
+                }}
+              >
                 {faq.question}
-              </span>
+              </h3>
               {activeIndex === index ? (
                 <ChevronUp className="w-5 h-5 text-gray-600" />
               ) : (
